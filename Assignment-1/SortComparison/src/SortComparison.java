@@ -21,7 +21,7 @@ class SortComparison {
      */
     static double[] insertionSort(double a[]) {
 
-        // todo: implement the sort
+        return new double[] {};
     }// end insertionsort
 
     /**
@@ -34,7 +34,7 @@ class SortComparison {
      */
     static double[] selectionSort(double a[]) {
 
-        // todo: implement the sort
+        return new double[] {};
 
     }// end selectionsort
 
@@ -48,18 +48,10 @@ class SortComparison {
      */
     static double[] quickSort(double a[]) {
 
-        // todo: implement the sort
+        return new double[] {};
 
     }// end quicksort
 
-    /**
-     * Sorts an array of doubles using Merge Sort.
-     * This method is static, thus it can be called as SortComparison.sort(a)
-     * 
-     * @param a: An unsorted array of doubles.
-     * @return array sorted in ascending order
-     *
-     */
     /**
      * Sorts an array of doubles using iterative implementation of Merge Sort.
      * This method is static, thus it can be called as SortComparison.sort(a)
@@ -71,7 +63,7 @@ class SortComparison {
 
     static double[] mergeSortIterative(double a[]) {
 
-        // todo: implement the sort
+        return new double[] {};
 
     }// end mergesortIterative
 
@@ -85,7 +77,7 @@ class SortComparison {
      */
     static double[] mergeSortRecursive(double a[]) {
 
-        // todo: implement the sort
+        return new double[] {};
 
     }// end mergeSortRecursive
 
