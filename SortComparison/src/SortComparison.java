@@ -1,4 +1,28 @@
-// -------------------------------------------------------------------------
+/*
+                    |Insert  |  Selection |    Quick |    Merge Rec |    Merge It   |
+1000 random         |_______ |____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 few unique     |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 nearly ordered |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 reverse order  |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 sorted         |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+10000 random        |________|____________|__________|______________|_______________|
+
+a.
+
+b.
+
+c.
+
+d.
+
+e.
+
+*/
 
 /**
  * This class contains static methods that implementing sorting of an array of
@@ -21,7 +45,17 @@ class SortComparison {
      */
     static double[] insertionSort(double a[]) {
 
-        return new double[] {};
+        double temp;
+        for (int i = 1; i < a.length; i++) {
+            for (int j = i; j > 0; j--) {
+                if (a[j] < a[j - 1]) {
+                    temp = a[j];
+                    a[j] = a[j - 1];
+                    a[j - 1] = temp;
+                }
+            }
+        }
+        return a;
     }// end insertionsort
 
     /**
@@ -34,9 +68,42 @@ class SortComparison {
      */
     static double[] selectionSort(double a[]) {
 
-        return new double[] {};
+        int n = a.length;
+        for (int i = 0; i < n - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < n; j++)
+                if (a[j] < a[min])
+                    min = j;
+            double temp = a[min];
+            a[min] = a[i];
+            a[i] = temp;
+        }
+        return a;
+    }
 
-    }// end selectionsort
+    private static int partition(double[] numbers, int lo, int hi) {
+        int i = lo;
+        int j = hi + 1;
+        double pivot = numbers[lo];
+        while (true) {
+            while ((numbers[++i] == pivot)) {
+                if (i == hi)
+                    break;
+            }
+            while ((pivot == numbers[--j])) {
+                if (j == lo)
+                    break;
+            }
+            if (i >= j)
+                break;
+            double temp = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = temp;
+        }
+        numbers[lo] = numbers[j];
+        numbers[j] = pivot;
+        return j;
+    }
 
     /**
      * Sorts an array of doubles using Quick Sort.
@@ -46,10 +113,16 @@ class SortComparison {
      * @return array sorted in ascending order
      *
      */
-    static double[] quickSort(double a[]) {
+    static double[] quickSort(double a[], int lo, int hi) {
 
-        return new double[] {};
-
+        if (hi > lo) {
+            int pivotPos = partition(a, lo, hi);
+            quickSort(a, lo, pivotPos - 1);
+            quickSort(a, pivotPos + 1, hi);
+        } else {
+            return a;
+        }
+        return a;
     }// end quicksort
 
     /**
