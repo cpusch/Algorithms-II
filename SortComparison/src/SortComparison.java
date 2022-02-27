@@ -1,4 +1,3 @@
-
 /**
  * This class contains static methods that implementing sorting of an array of
  * numbers
