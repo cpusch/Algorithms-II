@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import java.io.*;
+import java.util.Scanner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -115,6 +117,18 @@ public class SortComparisonTest {
         assertArrayEquals(SortComparison.mergeSortRecursive(a), new double[] { 44.85 }, 0);
     }
 
+    private static double[] populateArray(File file, int n) throws FileNotFoundException {
+        double[] result = new double[n];
+        Scanner in = new Scanner(file);
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = in.nextDouble();
+        }
+
+        in.close();
+        return result;
+    }
+
     // ----------------------------------------------------------
     /**
      * Main Method.
@@ -122,8 +136,28 @@ public class SortComparisonTest {
      * experimental performance questions of this assignment.
      *
      */
-    public static void main(String[] args) {
-        // TODO: implement this method
+    public static void main(String[] args) throws FileNotFoundException {
+        File tenFile = new File("../numbers10.txt");
+        double[] array10 = populateArray(tenFile, 10);
+
+        File hundredFile = new File("../numbers100.txt");
+        double[] array100 = populateArray(hundredFile, 100);
+
+        File thousandFile = new File("../numbers1000.txt");
+        double[] array1000 = populateArray(thousandFile, 1000);
+
+        File thousandDuplicates = new File("../numbers1000Duplicates.txt");
+        double[] array1000Duplicates = populateArray(thousandDuplicates, 1000);
+
+        File thousandNearlyOrdered = new File("../numbersNearlyOrdered1000.txt");
+        double[] array1000NearlyOrdered = populateArray(thousandNearlyOrdered, 1000);
+
+        File thousandReverse = new File("../numbersReverse1000.txt");
+        double[] array1000Reverse = populateArray(thousandReverse, 100);
+
+        File thousandSorted = new File("../numbersSorted1000.txt");
+        double[] array1000Sorted = populateArray(thousandSorted, 100);
+
     }
 
 }

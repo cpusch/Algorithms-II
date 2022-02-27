@@ -189,9 +189,4 @@ class SortComparison {
 
     }// end mergeSortRecursive
 
-    public static void main(String[] args) {
-
-        // todo: do experiments as per assignment instructions
-    }
-
 }// end class
