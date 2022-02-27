@@ -113,12 +113,17 @@ class SortComparison {
      * @return array sorted in ascending order
      *
      */
-    static double[] quickSort(double a[], int lo, int hi) {
+    public static double[] quickSort(double[] a) {
+        recurQuick(a, 0, a.length - 1);
+        return a;
+    }
+
+    private static double[] recurQuick(double a[], int lo, int hi) {
 
         if (hi > lo) {
             int pivotPos = partition(a, lo, hi);
-            quickSort(a, lo, pivotPos - 1);
-            quickSort(a, pivotPos + 1, hi);
+            recurQuick(a, lo, pivotPos - 1);
+            recurQuick(a, pivotPos + 1, hi);
         } else {
             return a;
         }
@@ -136,9 +141,40 @@ class SortComparison {
 
     static double[] mergeSortIterative(double a[]) {
 
-        return new double[] {};
+        double[] temp = new double[a.length];
+        for (int sz = 1; sz < a.length; sz = sz + sz)
+            for (int lo = 0; lo < a.length - sz; lo += sz + sz)
+                merge(a, temp, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, a.length - 1));
+
+        return a;
 
     }// end mergesortIterative
+
+    private static void mergeSort(double[] a, double[] temp, int lo, int hi) {
+        if (hi <= lo)
+            return;
+        int mid = lo + (hi - lo) / 2;
+        mergeSort(a, temp, lo, mid);
+        mergeSort(a, temp, mid + 1, hi);
+        merge(a, temp, lo, mid, hi);
+    }
+
+    private static void merge(double[] a, double[] temp, int lo, int mid, int hi) {
+        temp = a.clone();
+
+        int i = lo, j = mid + 1;
+        for (int k = lo; k <= hi; k++) {
+            if (i > mid)
+                a[k] = temp[j++];
+            else if (j > hi)
+                a[k] = temp[i++];
+            else if (temp[j] < temp[i])
+                a[k] = temp[j++];
+            else
+                a[k] = temp[i++];
+
+        }
+    }
 
     /**
      * Sorts an array of doubles using recursive implementation of Merge Sort.
@@ -150,7 +186,9 @@ class SortComparison {
      */
     static double[] mergeSortRecursive(double a[]) {
 
-        return new double[] {};
+        double[] temp = new double[a.length];
+        mergeSort(a, temp, 0, a.length - 1);
+        return a;
 
     }// end mergeSortRecursive
 
