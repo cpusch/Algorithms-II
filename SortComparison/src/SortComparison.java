@@ -81,28 +81,25 @@ class SortComparison {
         return a;
     }
 
-    private static int partition(double[] numbers, int lo, int hi) {
-        int i = lo;
-        int j = hi + 1;
-        double pivot = numbers[lo];
-        while (true) {
-            while ((numbers[++i] == pivot)) {
-                if (i == hi)
-                    break;
+    // implemented from https://www.geeksforgeeks.org/java-program-for-quicksort/
+    private static int partition(double arr[], int low, int high) {
+        double pivot = arr[high];
+        int i = (low - 1);
+        for (int j = low; j < high; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+
+                double temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
             }
-            while ((pivot == numbers[--j])) {
-                if (j == lo)
-                    break;
-            }
-            if (i >= j)
-                break;
-            double temp = numbers[i];
-            numbers[i] = numbers[j];
-            numbers[j] = temp;
         }
-        numbers[lo] = numbers[j];
-        numbers[j] = pivot;
-        return j;
+
+        double temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
     }
 
     /**
