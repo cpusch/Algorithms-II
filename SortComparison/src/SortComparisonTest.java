@@ -1,3 +1,29 @@
+/*
+                    |Insert  |  Selection |    Quick |    Merge Rec |    Merge It   |
+1000 random         |_______ |____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 few unique     |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 nearly ordered |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 reverse order  |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+1000 sorted         |________|____________|__________|______________|_______________|
+                    |        |            |          |              |               |
+10000 random        |________|____________|__________|______________|_______________|
+
+a.
+
+b.
+
+c.
+
+d.
+
+e.
+
+*/
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import java.io.*;
@@ -137,27 +163,218 @@ public class SortComparisonTest {
      *
      */
     public static void main(String[] args) throws FileNotFoundException {
-        File tenFile = new File("../numbers10.txt");
-        double[] array10 = populateArray(tenFile, 10);
-
-        File hundredFile = new File("../numbers100.txt");
-        double[] array100 = populateArray(hundredFile, 100);
-
-        File thousandFile = new File("../numbers1000.txt");
+        File thousandFile = new File("/home/user/Semester2/Algorithms-II/SortComparison/numbers1000.txt");
         double[] array1000 = populateArray(thousandFile, 1000);
 
-        File thousandDuplicates = new File("../numbers1000Duplicates.txt");
+        File thousandDuplicates = new File(
+                "/home/user/Semester2/Algorithms-II/SortComparison/numbers1000.txt/numbers1000Duplicates.txt");
         double[] array1000Duplicates = populateArray(thousandDuplicates, 1000);
 
-        File thousandNearlyOrdered = new File("../numbersNearlyOrdered1000.txt");
+        File thousandNearlyOrdered = new File(
+                "/home/user/Semester2/Algorithms-II/SortComparison/numbers1000.txt/numbersNearlyOrdered1000.txt");
         double[] array1000NearlyOrdered = populateArray(thousandNearlyOrdered, 1000);
 
-        File thousandReverse = new File("../numbersReverse1000.txt");
+        File thousandReverse = new File(
+                "/home/user/Semester2/Algorithms-II/SortComparison/numbers1000.txt/numbersReverse1000.txt");
         double[] array1000Reverse = populateArray(thousandReverse, 100);
 
-        File thousandSorted = new File("../numbersSorted1000.txt");
+        File thousandSorted = new File(
+                "/home/user/Semester2/Algorithms-II/SortComparison/numbers1000.txt/numbersSorted1000.txt");
         double[] array1000Sorted = populateArray(thousandSorted, 100);
 
+        File tenThousandsFile = new File(
+                "/home/user/Semester2/Algorithms-II/SortComparison/numbers1000.txt/numbers10000.txt");
+        double[] arrayTenThousand = populateArray(tenThousandsFile, 10000);
+
+        // INSERTION SORT
+        // 1000 random
+        double[] temp = array1000.clone();
+        long startTime = System.nanoTime();
+        SortComparison.insertionSort(temp);
+        long endTime = System.nanoTime();
+        System.out.println("Insertion Sort array1000: " + (startTime - endTime));
+        // 1000 duplicates
+        temp = array1000Duplicates.clone();
+        startTime = System.nanoTime();
+        SortComparison.insertionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Insertion Sort array1000Duplicates: " + (startTime - endTime));
+        // 1000 nearly ordered
+        temp = array1000NearlyOrdered.clone();
+        startTime = System.nanoTime();
+        SortComparison.insertionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Insertion Sort array1000NearlyOrdered: " + (startTime - endTime));
+        // 1000 reverse
+        temp = array1000Reverse.clone();
+        startTime = System.nanoTime();
+        SortComparison.insertionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Insertion Sort array1000Reverse: " + (startTime - endTime));
+        // 1000 sorted
+        temp = array1000Sorted.clone();
+        startTime = System.nanoTime();
+        SortComparison.insertionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Insertion Sort array1000Sorted: " + (startTime - endTime));
+        // 10000 random
+        temp = arrayTenThousand.clone();
+        startTime = System.nanoTime();
+        SortComparison.insertionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Insertion Sort arrayTenThousand: " + (startTime - endTime));
+
+        // SELECTION SORT
+        // 1000 random
+        temp = array1000.clone();
+        startTime = System.nanoTime();
+        SortComparison.selectionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Selection Sort array1000: " + (startTime - endTime));
+        // 1000 duplicates
+        temp = array1000Duplicates.clone();
+        startTime = System.nanoTime();
+        SortComparison.selectionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Selection Sort array1000Duplicates: " + (startTime - endTime));
+        // 1000 nearly ordered
+        temp = array1000NearlyOrdered.clone();
+        startTime = System.nanoTime();
+        SortComparison.selectionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Selection Sort array1000NearlyOrdered: " + (startTime - endTime));
+        // 1000 reverse
+        temp = array1000Reverse.clone();
+        startTime = System.nanoTime();
+        SortComparison.selectionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Selection Sort array1000Reverse: " + (startTime - endTime));
+        // 1000 sorted
+        temp = array1000Sorted.clone();
+        startTime = System.nanoTime();
+        SortComparison.selectionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Selection Sort array1000Sorted: " + (startTime - endTime));
+        // 10000 random
+        temp = arrayTenThousand.clone();
+        startTime = System.nanoTime();
+        SortComparison.selectionSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Selection Sort arrayTenThousand: " + (startTime - endTime));
+
+        // Quick SORT
+        // 1000 random
+        temp = array1000.clone();
+        startTime = System.nanoTime();
+        SortComparison.quickSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Quick Sort array1000: " + (startTime - endTime));
+        // 1000 duplicates
+        temp = array1000Duplicates.clone();
+        startTime = System.nanoTime();
+        SortComparison.quickSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Quick Sort array1000Duplicates: " + (startTime - endTime));
+        // 1000 nearly ordered
+        temp = array1000NearlyOrdered.clone();
+        startTime = System.nanoTime();
+        SortComparison.quickSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Quick Sort array1000NearlyOrdered: " + (startTime - endTime));
+        // 1000 reverse
+        temp = array1000Reverse.clone();
+        startTime = System.nanoTime();
+        SortComparison.quickSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Quick Sort array1000Reverse: " + (startTime - endTime));
+        // 1000 sorted
+        temp = array1000Sorted.clone();
+        startTime = System.nanoTime();
+        SortComparison.quickSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Quick Sort array1000Sorted: " + (startTime - endTime));
+        // 10000 random
+        temp = arrayTenThousand.clone();
+        startTime = System.nanoTime();
+        SortComparison.quickSort(temp);
+        endTime = System.nanoTime();
+        System.out.println("Quick Sort arrayTenThousand: " + (startTime - endTime));
+
+        // MERGE SORT ITERATIVE
+        // 1000 random
+        temp = array1000.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortIterative(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Iterative array1000: " + (startTime - endTime));
+        // 1000 duplicates
+        temp = array1000Duplicates.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortIterative(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Iterative array1000Duplicates: " + (startTime - endTime));
+        // 1000 nearly ordered
+        temp = array1000NearlyOrdered.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortIterative(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Iterative array1000NearlyOrdered: " + (startTime - endTime));
+        // 1000 reverse
+        temp = array1000Reverse.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortIterative(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Iterative array1000Reverse: " + (startTime - endTime));
+        // 1000 sorted
+        temp = array1000Sorted.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortIterative(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Iterative array1000Sorted: " + (startTime - endTime));
+        // 10000 random
+        temp = arrayTenThousand.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortIterative(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Iterative arrayTenThousand: " + (startTime - endTime));
+
+        // MERGE SORT RECURSIVE
+        // 1000 random
+        temp = array1000.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortRecursive(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Recursive array1000: " + (startTime - endTime));
+        // 1000 duplicates
+        temp = array1000Duplicates.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortRecursive(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Recursive array1000Duplicates: " + (startTime - endTime));
+        // 1000 nearly ordered
+        temp = array1000NearlyOrdered.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortRecursive(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Recursive array1000NearlyOrdered: " + (startTime - endTime));
+        // 1000 reverse
+        temp = array1000Reverse.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortRecursive(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Recursive array1000Reverse: " + (startTime - endTime));
+        // 1000 sorted
+        temp = array1000Sorted.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortRecursive(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Recursive array1000Sorted: " + (startTime - endTime));
+        // 10000 random
+        temp = arrayTenThousand.clone();
+        startTime = System.nanoTime();
+        SortComparison.mergeSortRecursive(temp);
+        endTime = System.nanoTime();
+        System.out.println("Merge Sort Recursive arrayTenThousand: " + (startTime - endTime));
     }
 
 }
