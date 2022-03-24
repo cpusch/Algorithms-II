@@ -11,10 +11,20 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 @RunWith(JUnit4.class)
-public class ComptetitionTest {
-    // ~ Constructor ........................................................
+public class CompetitionTest{
+
     @Test
-    public void testConstructor() {
-        new Comptetition();
+    public void testDijkstraConstructor() {
+
+        //TODO
     }
+
+    @Test
+    public void testFWConstructor() {
+        //TODO
+    }
+
+    //TODO - more tests
+    
 }
+
