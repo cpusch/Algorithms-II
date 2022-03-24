@@ -11,10 +11,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 @RunWith(JUnit4.class)
-public class ShortestPathTest {
+public class ComptetitionTest {
     // ~ Constructor ........................................................
     @Test
     public void testConstructor() {
-        new ShortestPath();
+        new Comptetition();
     }
 }
