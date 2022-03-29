@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import CompetitionDijkstra.Graph.Edge;
-
 /*
  * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
  * city intersections. In order to win, the three contestants need all to meet at any intersection
