@@ -20,29 +20,29 @@ import java.util.List;
 
 public class CompetitionDijkstra {
 
-    private class Edge {
-        int src, dest;
-        double weight;
-
-        Edge(int src, int dest, double weight) {
-            this.src = src;
-            this.dest = dest;
-            this.weight = weight;
-        }
-
-    }
-
-    private static class Node {
-        int value;
-        double weight;
-
-        Node(int value, double weight) {
-            this.value = value;
-            this.weight = weight;
-        }
-    }
-
     private class Graph {
+        private class Edge {
+            int src, dest;
+            double weight;
+
+            Edge(int src, int dest, double weight) {
+                this.src = src;
+                this.dest = dest;
+                this.weight = weight;
+            }
+
+        }
+
+        private static class Node {
+            int value;
+            double weight;
+
+            Node(int value, double weight) {
+                this.value = value;
+                this.weight = weight;
+            }
+        }
+
         List<List<Node>> adj_list = new ArrayList<>();
 
         // Graph Constructor
