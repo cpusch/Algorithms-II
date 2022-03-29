@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
  * city intersections. In order to win, the three contestants need all to meet at any intersection
@@ -17,22 +20,61 @@
 
 public class CompetitionDijkstra {
 
-    /**
-     * @param filename: A filename containing the details of the city road network
-     * @param sA, sB, sC: speeds for 3 contestants
-    */
-    CompetitionDijkstra (String filename, int sA, int sB, int sC){
+    private class Edge {
+        int src, dest;
+        double weight;
 
-       //TODO
+        Edge(int src, int dest, double weight) {
+            this.src = src;
+            this.dest = dest;
+            this.weight = weight;
+        }
+
     }
 
+    private static class Node {
+        int value;
+        double weight;
+
+        Node(int value, double weight) {
+            this.value = value;
+            this.weight = weight;
+        }
+    }
+
+    private class Graph {
+        List<List<Node>> adj_list = new ArrayList<>();
+
+        // Graph Constructor
+        Graph(List<Edge> edges) {
+            // adjacency list memory allocation
+            for (int i = 0; i < edges.size(); i++)
+                adj_list.add(i, new ArrayList<>());
+
+            // add edges to the graph
+            for (Edge e : edges) {
+                // allocate new node in adjacency List from src to dest
+                adj_list.get(e.src).add(new Node(e.dest, e.weight));
+            }
+        }
+    }
 
     /**
-    * @return int: minimum minutes that will pass before the three contestants can meet
+     * @param filename: A filename containing the details of the city road network
+     * @param sA,       sB, sC: speeds for 3 contestants
      */
-    public int timeRequiredforCompetition(){
+    CompetitionDijkstra(String filename, int sA, int sB, int sC) {
 
-        //TO DO
+        // TODO
+    }
+
+    /**
+     * @return int: minimum minutes that will pass before the three contestants can
+     *         meet
+     */
+    public int timeRequiredforCompetition() {
+
+        // TO DO
         return -1;
     }
 
