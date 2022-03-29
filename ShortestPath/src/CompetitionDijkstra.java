@@ -80,7 +80,13 @@ public class CompetitionDijkstra {
      * @param sA,       sB, sC: speeds for 3 contestants
      */
     CompetitionDijkstra(String filename, int sA, int sB, int sC) {
-
+        try{
+            File file = new File(filename);
+            Scanner input = new Scanner(file);
+            while(input.hasNextLine()){
+                
+            }
+        }
     }
 
     /**
