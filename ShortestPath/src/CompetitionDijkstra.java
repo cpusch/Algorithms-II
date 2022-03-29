@@ -20,32 +20,15 @@ import java.util.List;
 
 public class CompetitionDijkstra {
 
+    // private class that hanldles the graph implementation using an
+    // adjacency list
     private class Graph {
-        private class Edge {
-            int src, dest;
-            double weight;
-
-            Edge(int src, int dest, double weight) {
-                this.src = src;
-                this.dest = dest;
-                this.weight = weight;
-            }
-
-        }
-
-        private static class Node {
-            int value;
-            double weight;
-
-            Node(int value, double weight) {
-                this.value = value;
-                this.weight = weight;
-            }
-        }
-
         List<List<Node>> adj_list = new ArrayList<>();
 
-        // Graph Constructor
+        /**
+         * 
+         * @param edges list of edges to then create the graph
+         */
         Graph(List<Edge> edges) {
             // adjacency list memory allocation
             for (int i = 0; i < edges.size(); i++)
@@ -55,6 +38,36 @@ public class CompetitionDijkstra {
             for (Edge e : edges) {
                 // allocate new node in adjacency List from src to dest
                 adj_list.get(e.src).add(new Node(e.dest, e.weight));
+            }
+        }
+
+        // represents edges in graph
+        private class Edge {
+            int src, dest;
+            double weight;
+
+            /**
+             * 
+             * @param src    source node
+             * @param dest   destination node
+             * @param weight weight of edge
+             */
+            Edge(int src, int dest, double weight) {
+                this.src = src;
+                this.dest = dest;
+                this.weight = weight;
+            }
+
+        }
+
+        // represents nodes in grpah
+        private static class Node {
+            int value;
+            double weight;
+
+            Node(int value, double weight) {
+                this.value = value;
+                this.weight = weight;
             }
         }
     }
