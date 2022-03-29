@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import CompetitionDijkstra.Graph.Edge;
+
 /*
  * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
  * city intersections. In order to win, the three contestants need all to meet at any intersection
@@ -22,7 +24,7 @@ public class CompetitionDijkstra {
 
     // private class that hanldles the graph implementation using an
     // adjacency list
-    private class Graph {
+    class Graph {
         List<List<Node>> adj_list = new ArrayList<>();
 
         /**
@@ -40,35 +42,35 @@ public class CompetitionDijkstra {
                 adj_list.get(e.src).add(new Node(e.dest, e.weight));
             }
         }
+    }
 
-        // represents edges in graph
-        private class Edge {
-            int src, dest;
-            double weight;
+    // represents edges in graph
+    private class Edge {
+        int src, dest;
+        double weight;
 
-            /**
-             * 
-             * @param src    source node
-             * @param dest   destination node
-             * @param weight weight of edge
-             */
-            Edge(int src, int dest, double weight) {
-                this.src = src;
-                this.dest = dest;
-                this.weight = weight;
-            }
-
+        /**
+         * 
+         * @param src    source node
+         * @param dest   destination node
+         * @param weight weight of edge
+         */
+        Edge(int src, int dest, double weight) {
+            this.src = src;
+            this.dest = dest;
+            this.weight = weight;
         }
 
-        // represents nodes in grpah
-        private static class Node {
-            int value;
-            double weight;
+    }
 
-            Node(int value, double weight) {
-                this.value = value;
-                this.weight = weight;
-            }
+    // represents nodes in grpah
+    private static class Node {
+        int value;
+        double weight;
+
+        Node(int value, double weight) {
+            this.value = value;
+            this.weight = weight;
         }
     }
 
@@ -78,7 +80,6 @@ public class CompetitionDijkstra {
      */
     CompetitionDijkstra(String filename, int sA, int sB, int sC) {
 
-        // TODO
     }
 
     /**
