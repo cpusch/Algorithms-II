@@ -22,17 +22,17 @@ import java.util.Scanner;
  */
 
 public class CompetitionDijkstra {
+    private List<List<Node>> adj_list = new ArrayList<>();
 
     // private class that hanldles the graph implementation using an
-    // adjacency list
+    // adjacency list. Also parses file to generate graph
     class Graph {
-        List<List<Node>> adj_list = new ArrayList<>();
-
         /**
          * 
          * @param edges list of edges to then create the graph
          */
-        Graph(List<Edge> edges) {
+        Graph(String filename) {
+            List<Edge> edges = parseFile(filename);
             // adjacency list memory allocation
             for (int i = 0; i < edges.size(); i++)
                 adj_list.add(i, new ArrayList<>());
@@ -42,6 +42,26 @@ public class CompetitionDijkstra {
                 // allocate new node in adjacency List from src to dest
                 adj_list.get(e.src).add(new Node(e.dest, e.weight));
             }
+        }
+
+        private List<Edge> parseFile(String filename) {
+            List<Edge> edges = new ArrayList<Edge>();
+            try {
+                File file = new File(filename);
+                Scanner input = new Scanner(file);
+                String tempArr[] = {};
+                while (input.hasNextLine()) {
+                    tempArr = input.nextLine().split(" ");
+                    edges.add(new Edge(Integer.parseInt(tempArr[0]), Integer.parseInt(tempArr[1]),
+                            Double.parseDouble(tempArr[2])));
+                }
+                input.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File Not Found");
+                e.printStackTrace();
+            }
+
+            return edges;
         }
     }
 
@@ -80,13 +100,7 @@ public class CompetitionDijkstra {
      * @param sA,       sB, sC: speeds for 3 contestants
      */
     CompetitionDijkstra(String filename, int sA, int sB, int sC) {
-        try{
-            File file = new File(filename);
-            Scanner input = new Scanner(file);
-            while(input.hasNextLine()){
-                
-            }
-        }
+
     }
 
     /**
