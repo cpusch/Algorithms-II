@@ -19,6 +19,10 @@ import java.io.File;
  */
 
 public class CompetitionDijkstra {
+    double longestPath = 0;
+    int sA, sB, sC;
+    int slowestWalker;
+
     public static void main(String args[]) {
         String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
         Graph graph = new Graph(file);
