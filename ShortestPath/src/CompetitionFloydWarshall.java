@@ -2,12 +2,12 @@ import java.util.*;
 import java.io.File;
 
 public class CompetitionFloydWarshall {
-    double longestPath = 0;
-    int sA, sB, sC;
-    int slowestWalker;
+    private double longestPath = 0;
+    private int sA, sB, sC;
+    private int slowestWalker;
 
     public static void main(String args[]) {
-        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/1000EWD.txt";
+        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
         CompetitionFloydWarshall test = new CompetitionFloydWarshall(file, 50, 80, 70);
         System.out.println(test.timeRequiredforCompetition());
 
