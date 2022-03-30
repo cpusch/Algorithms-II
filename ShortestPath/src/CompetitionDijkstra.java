@@ -32,6 +32,8 @@ public class CompetitionDijkstra {
     // adjacency list. Also parses file to generate graph
     static class Graph {
         private List<List<Node>> adj_list = new ArrayList<>();
+        static int numEdges;
+        static int numNodes;
 
         /**
          * 
@@ -40,7 +42,7 @@ public class CompetitionDijkstra {
         Graph(String filename) {
             List<Edge> edges = parseFile(filename);
             // adjacency list memory allocation
-            for (int i = 0; i < edges.size(); i++)
+            for (int i = 0; i < numNodes; i++)
                 adj_list.add(i, new ArrayList<>());
 
             // add edges to the graph
@@ -59,11 +61,11 @@ public class CompetitionDijkstra {
             try {
                 File file = new File(filename);
                 Scanner input = new Scanner(file);
-                String tempArr[] = {};
+                // skip the first two lines
+                numEdges = input.nextInt();
+                numNodes = input.nextInt();
                 while (input.hasNextLine()) {
-                    tempArr = input.nextLine().split(" ");
-                    edges.add(new Edge(Integer.parseInt(tempArr[0]), Integer.parseInt(tempArr[1]),
-                            Double.parseDouble(tempArr[2])));
+                    edges.add(new Edge(input.nextInt(), input.nextInt(), input.nextDouble()));
                 }
                 input.close();
             } catch (Exception e) {
