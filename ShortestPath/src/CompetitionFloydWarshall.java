@@ -2,13 +2,15 @@ import java.util.*;
 import java.io.File;
 
 public class CompetitionFloydWarshall {
+    double longestPath = 0;
+    int sA, sB, sC;
+    int slowestWalker;
+
     public static void main(String args[]) {
-        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
-        Graph graph = new Graph(file);
-        double temp[][] = graph.getMatrix();
-        for (int i = 0; i < graph.getNumNodes(); i++) {
-            System.out.println(Arrays.toString(temp[i]));
-        }
+        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/1000EWD.txt";
+        CompetitionFloydWarshall test = new CompetitionFloydWarshall(file, 50, 80, 70);
+        System.out.println(test.timeRequiredforCompetition());
+
     }
 
     // class that hanldles the graph implementation using an
@@ -117,9 +119,20 @@ public class CompetitionFloydWarshall {
     }
 
     static double[][] floydWarshall(Graph graph) {
-        double matrix[][] = new double[graph.getNumNodes()][graph.getNumNodes()];
+        double dist[][] = new double[graph.getNumNodes()][graph.getNumNodes()];
 
-        return matrix;
+        dist = graph.getMatrix().clone();
+
+        for (int k = 0; k < graph.getNumNodes(); k++) {
+            for (int i = 0; i < graph.getNumNodes(); i++) {
+                for (int j = 0; j < graph.getNumNodes(); j++) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j])
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+
+        return dist;
     }
 
     /**
@@ -127,8 +140,20 @@ public class CompetitionFloydWarshall {
      * @param sA,       sB, sC: speeds for 3 contestants
      */
     CompetitionFloydWarshall(String filename, int sA, int sB, int sC) {
+        Graph graph = new Graph(filename);
+        this.sA = sA;
+        this.sB = sB;
+        this.sC = sC;
+        slowestWalker = Math.min(Math.min(sA, sB), sC);
+        double[][] temp = floydWarshall(graph);
 
-        // TODO
+        for (int i = 0; i < graph.getNumNodes(); i++) {
+            for (int j = 0; j < graph.getNumNodes(); j++) {
+                if (temp[i][j] > longestPath) {
+                    longestPath = temp[i][j];
+                }
+            }
+        }
     }
 
     /**
@@ -136,9 +161,13 @@ public class CompetitionFloydWarshall {
      *         meet
      */
     public int timeRequiredforCompetition() {
+        if (!((sA >= 50 && sA <= 100) && (sB >= 50 && sB <= 100) && (sC >= 50 && sC <= 100)))
+            return -1;
+        else if (longestPath == Double.POSITIVE_INFINITY || longestPath == 0)
+            return -1;
 
-        // TO DO
-        return -1;
+        else
+            return (int) Math.ceil((longestPath * 1000.0) / slowestWalker);
     }
 
 }
