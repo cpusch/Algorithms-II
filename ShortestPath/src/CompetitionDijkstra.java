@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.io.File;
-import java.util.Scanner;
 
 /*
  * A Contest to Meet (ACM) is a reality TV contest that sets three contestants at three random
@@ -24,15 +22,16 @@ public class CompetitionDijkstra {
     public static void main(String args[]) {
         String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
         Graph graph = new Graph(file);
-        System.out.println(graph.getGraph().get(0));
+        List<Node> temp = graph.getGraph().get(0);
+        System.out.println(temp);
     }
 
     // class that hanldles the graph implementation using an
     // adjacency list. Also parses file to generate graph
     static class Graph {
         private List<List<Node>> adj_list = new ArrayList<>();
-        static int numEdges;
-        static int numNodes;
+        private static int numEdges;
+        private static int numNodes;
 
         /**
          * 
@@ -51,18 +50,27 @@ public class CompetitionDijkstra {
             }
         }
 
+        int getNumEdges() {
+            return numEdges;
+        }
+
+        int getNumNodes() {
+            return numNodes;
+        }
+
         List<List<Node>> getGraph() {
             return adj_list;
         }
 
-        static private List<Edge> parseFile(String filename) {
+        private static List<Edge> parseFile(String filename) {
             List<Edge> edges = new ArrayList<Edge>();
             try {
                 File file = new File(filename);
                 Scanner input = new Scanner(file);
-                // skip the first two lines
+                // skip the first two lines and set appropriat values
                 numNodes = input.nextInt();
                 numEdges = input.nextInt();
+                // adds edges from file to edge list
                 while (input.hasNextLine()) {
                     edges.add(new Edge(input.nextInt(), input.nextInt(), input.nextDouble()));
                 }
@@ -77,7 +85,7 @@ public class CompetitionDijkstra {
     }
 
     // represents edges in graph
-    static private class Edge {
+    private static class Edge {
         int src, dest;
         double weight;
 
@@ -106,8 +114,26 @@ public class CompetitionDijkstra {
         }
     }
 
-    List<Edge> Dijkstra() {
-        return new ArrayList<Edge>();
+    public static double[] dijkstra(Graph graph, int source) {
+        double[] distance = new double[graph.getNumNodes()];
+        for (int i = 0; i < graph.getNumNodes(); i++)
+            distance[i] = Integer.MAX_VALUE;
+
+        PriorityQueue<Node> pq = new PriorityQueue<Node>();
+        pq.add(new Node(source, 0.0));
+
+        while (pq.size() > 0) {
+            Node current = pq.poll();
+
+            for (Node n : graph.getGraph().get(current.value)) {
+                if (distance[current.value] + n.weight < distance[n.value]) {
+                    distance[n.value] = n.weight + distance[current.value];
+                    pq.add(new Node(n.value, distance[n.value]));
+                }
+            }
+        }
+
+        return distance;
     }
 
     /**
