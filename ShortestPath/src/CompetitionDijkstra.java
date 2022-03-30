@@ -19,15 +19,14 @@ import java.io.File;
  */
 
 public class CompetitionDijkstra {
-    double longestPath = 0;
-    int sA, sB, sC;
-    int slowestWalker;
+    private double longestPath = 0;
+    private int sA, sB, sC;
+    private int slowestWalker;
 
     public static void main(String args[]) {
         String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
-        Graph graph = new Graph(file);
-        double[] temp = dijkstra(graph, 3);
-        System.out.println(Arrays.toString(temp));
+        CompetitionDijkstra test = new CompetitionDijkstra(file, 50, 80, 70);
+        System.out.println(test.timeRequiredforCompetition());
     }
 
     // class that hanldles the graph implementation using an
@@ -136,18 +135,18 @@ public class CompetitionDijkstra {
     }
 
     static int getMinimumNode(boolean[] mst, double[] distance, Graph graph) {
-        double minKey = Double.POSITIVE_INFINITY;
+        double tempDistance = Double.POSITIVE_INFINITY;
         int node = -1;
         for (int i = 0; i < graph.getNumNodes(); i++) {
-            if (mst[i] == false && minKey > distance[i]) {
-                minKey = distance[i];
+            if (mst[i] == false && tempDistance > distance[i]) {
+                tempDistance = distance[i];
                 node = i;
             }
         }
         return node;
     }
 
-    static double[] dijkstra(Graph graph, int source) {
+    double[] dijkstra(Graph graph, int source) {
         double[] distance = new double[graph.getNumNodes()];
         boolean[] spt = new boolean[graph.getNumNodes()];
 
@@ -180,7 +179,24 @@ public class CompetitionDijkstra {
      * @param sA,       sB, sC: speeds for 3 contestants
      */
     CompetitionDijkstra(String filename, int sA, int sB, int sC) {
-        double minTime = 0;
+        Graph graph = new Graph(filename);
+        this.sA = sA;
+        this.sB = sB;
+        this.sC = sC;
+        slowestWalker = Math.min(Math.min(sA, sB), sC);
+        List<double[]> nodePaths = new ArrayList<double[]>();
+
+        for (int i = 0; i < graph.getNumNodes(); i++) {
+            nodePaths.add(dijkstra(graph, i));
+        }
+
+        for (double[] paths : nodePaths) {
+            for (int i = 0; i < graph.getNumNodes(); i++) {
+                if (paths[i] > longestPath) {
+                    longestPath = paths[i];
+                }
+            }
+        }
     }
 
     /**
@@ -188,9 +204,13 @@ public class CompetitionDijkstra {
      *         meet
      */
     public int timeRequiredforCompetition() {
+        if (!((sA >= 50 && sA <= 100) && (sB >= 50 && sB <= 100) && (sC >= 50 && sC <= 100)))
+            return -1;
+        else if (longestPath == Double.POSITIVE_INFINITY || longestPath == 0)
+            return -1;
 
-        // TO DO
-        return -1;
+        else
+            return (int) Math.ceil((longestPath * 1000.0) / slowestWalker);
     }
 
 }
