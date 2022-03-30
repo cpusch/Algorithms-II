@@ -22,10 +22,15 @@ import java.util.Scanner;
  */
 
 public class CompetitionDijkstra {
+    public static void main(String args[]) {
+        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
+        Graph graph = new Graph(file);
+        System.out.println(graph.getGraph().get(0));
+    }
 
     // class that hanldles the graph implementation using an
     // adjacency list. Also parses file to generate graph
-    class Graph {
+    static class Graph {
         private List<List<Node>> adj_list = new ArrayList<>();
 
         /**
@@ -49,7 +54,7 @@ public class CompetitionDijkstra {
             return adj_list;
         }
 
-        private List<Edge> parseFile(String filename) {
+        static private List<Edge> parseFile(String filename) {
             List<Edge> edges = new ArrayList<Edge>();
             try {
                 File file = new File(filename);
@@ -71,7 +76,7 @@ public class CompetitionDijkstra {
     }
 
     // represents edges in graph
-    private class Edge {
+    static private class Edge {
         int src, dest;
         double weight;
 
