@@ -114,28 +114,6 @@ public class CompetitionDijkstra {
         }
     }
 
-    public static double[] dijkstra(Graph graph, int source) {
-        double[] distance = new double[graph.getNumNodes()];
-        for (int i = 0; i < graph.getNumNodes(); i++)
-            distance[i] = Integer.MAX_VALUE;
-
-        PriorityQueue<Node> pq = new PriorityQueue<Node>();
-        pq.add(new Node(source, 0.0));
-
-        while (pq.size() > 0) {
-            Node current = pq.poll();
-
-            for (Node n : graph.getGraph().get(current.value)) {
-                if (distance[current.value] + n.weight < distance[n.value]) {
-                    distance[n.value] = n.weight + distance[current.value];
-                    pq.add(new Node(n.value, distance[n.value]));
-                }
-            }
-        }
-
-        return distance;
-    }
-
     /**
      * @param filename: A filename containing the details of the city road network
      * @param sA,       sB, sC: speeds for 3 contestants
