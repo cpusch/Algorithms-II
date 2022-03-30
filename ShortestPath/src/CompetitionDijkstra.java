@@ -62,8 +62,8 @@ public class CompetitionDijkstra {
                 File file = new File(filename);
                 Scanner input = new Scanner(file);
                 // skip the first two lines
-                numEdges = input.nextInt();
                 numNodes = input.nextInt();
+                numEdges = input.nextInt();
                 while (input.hasNextLine()) {
                     edges.add(new Edge(input.nextInt(), input.nextInt(), input.nextDouble()));
                 }
