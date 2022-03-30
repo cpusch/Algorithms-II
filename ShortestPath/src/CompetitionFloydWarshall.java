@@ -2,10 +2,20 @@ import java.util.*;
 import java.io.File;
 
 public class CompetitionFloydWarshall {
+    public static void main(String args[]) {
+        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
+        Graph graph = new Graph(file);
+        double temp[][] = graph.getMatrix();
+        for (int i = 0; i < graph.getNumNodes(); i++) {
+            System.out.println(Arrays.toString(temp[i]));
+        }
+    }
+
     // class that hanldles the graph implementation using an
     // adjacency list. Also parses file to generate graph
     static class Graph {
         private List<List<Node>> adj_list = new ArrayList<>();
+        private double[][] adj_matrix = new double[numNodes][numNodes];
         private static int numEdges;
         private static int numNodes;
 
@@ -24,6 +34,18 @@ public class CompetitionFloydWarshall {
                 // allocate new node in adjacency List from src to dest
                 adj_list.get(e.src).add(new Node(e.dest, e.weight));
             }
+            double temp[][] = new double[numNodes][numNodes];
+            for (int i = 0; i < numNodes; i++) {
+                for (int j = 0; j < numNodes; j++)
+                    temp[i][j] = Double.POSITIVE_INFINITY;
+            }
+
+            for (int i = 0; i < numNodes; i++) {
+                for (Node n : adj_list.get(i)) {
+                    temp[i][n.value] = n.weight;
+                }
+            }
+            adj_matrix = temp;
         }
 
         int getNumEdges() {
@@ -36,6 +58,10 @@ public class CompetitionFloydWarshall {
 
         List<List<Node>> getGraph() {
             return adj_list;
+        }
+
+        double[][] getMatrix() {
+            return adj_matrix;
         }
 
         private static List<Edge> parseFile(String filename) {
@@ -88,6 +114,12 @@ public class CompetitionFloydWarshall {
             this.value = value;
             this.weight = weight;
         }
+    }
+
+    static double[][] floydWarshall(Graph graph) {
+        double matrix[][] = new double[graph.getNumNodes()][graph.getNumNodes()];
+
+        return matrix;
     }
 
     /**
