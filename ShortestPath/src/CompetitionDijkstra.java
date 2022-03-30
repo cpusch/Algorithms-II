@@ -22,14 +22,15 @@ public class CompetitionDijkstra {
     public static void main(String args[]) {
         String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
         Graph graph = new Graph(file);
-        List<Node> temp = graph.getGraph().get(0);
-        System.out.println(temp);
+        double[] temp = dijkstra(graph, 3);
+        System.out.println(Arrays.toString(temp));
     }
 
     // class that hanldles the graph implementation using an
     // adjacency list. Also parses file to generate graph
     static class Graph {
         private List<List<Node>> adj_list = new ArrayList<>();
+        private double[][] adj_matrix = new double[numNodes][numNodes];
         private static int numEdges;
         private static int numNodes;
 
@@ -48,6 +49,18 @@ public class CompetitionDijkstra {
                 // allocate new node in adjacency List from src to dest
                 adj_list.get(e.src).add(new Node(e.dest, e.weight));
             }
+            double temp[][] = new double[numNodes][numNodes];
+            for (int i = 0; i < numNodes; i++) {
+                for (int j = 0; j < numNodes; j++)
+                    temp[i][j] = Double.POSITIVE_INFINITY;
+            }
+
+            for (int i = 0; i < numNodes; i++) {
+                for (Node n : adj_list.get(i)) {
+                    temp[i][n.value] = n.weight;
+                }
+            }
+            adj_matrix = temp;
         }
 
         int getNumEdges() {
@@ -60,6 +73,10 @@ public class CompetitionDijkstra {
 
         List<List<Node>> getGraph() {
             return adj_list;
+        }
+
+        double[][] getMatrix() {
+            return adj_matrix;
         }
 
         private static List<Edge> parseFile(String filename) {
@@ -112,6 +129,46 @@ public class CompetitionDijkstra {
             this.value = value;
             this.weight = weight;
         }
+    }
+
+    static int getMinimumNode(boolean[] mst, double[] distance, Graph graph) {
+        double minKey = Double.POSITIVE_INFINITY;
+        int node = -1;
+        for (int i = 0; i < graph.getNumNodes(); i++) {
+            if (mst[i] == false && minKey > distance[i]) {
+                minKey = distance[i];
+                node = i;
+            }
+        }
+        return node;
+    }
+
+    static double[] dijkstra(Graph graph, int source) {
+        double[] distance = new double[graph.getNumNodes()];
+        boolean[] spt = new boolean[graph.getNumNodes()];
+
+        for (int i = 0; i < graph.getNumNodes(); i++)
+            distance[i] = Double.POSITIVE_INFINITY;
+
+        distance[source] = 0;
+
+        for (int i = 0; i < graph.getNumNodes(); i++) {
+            int nodeU = getMinimumNode(spt, distance, graph);
+
+            spt[nodeU] = true;
+
+            for (int nodeV = 0; nodeV < graph.getNumNodes(); nodeV++) {
+                if (graph.getMatrix()[nodeU][nodeV] > 0) {
+                    if (spt[nodeV] == false && graph.getMatrix()[nodeU][nodeV] != Double.POSITIVE_INFINITY) {
+                        double newDistance = graph.getMatrix()[nodeU][nodeV] + distance[nodeU];
+                        if (newDistance < distance[nodeV]) {
+                            distance[nodeV] = newDistance;
+                        }
+                    }
+                }
+            }
+        }
+        return distance;
     }
 
     /**
