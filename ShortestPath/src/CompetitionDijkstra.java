@@ -22,11 +22,12 @@ import java.util.Scanner;
  */
 
 public class CompetitionDijkstra {
-    private List<List<Node>> adj_list = new ArrayList<>();
 
-    // private class that hanldles the graph implementation using an
+    // class that hanldles the graph implementation using an
     // adjacency list. Also parses file to generate graph
     class Graph {
+        private List<List<Node>> adj_list = new ArrayList<>();
+
         /**
          * 
          * @param edges list of edges to then create the graph
@@ -44,6 +45,10 @@ public class CompetitionDijkstra {
             }
         }
 
+        List<List<Node>> getGraph() {
+            return adj_list;
+        }
+
         private List<Edge> parseFile(String filename) {
             List<Edge> edges = new ArrayList<Edge>();
             try {
@@ -56,8 +61,8 @@ public class CompetitionDijkstra {
                             Double.parseDouble(tempArr[2])));
                 }
                 input.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("File Not Found");
+            } catch (Exception e) {
+                System.out.println("Error");
                 e.printStackTrace();
             }
 
@@ -95,12 +100,16 @@ public class CompetitionDijkstra {
         }
     }
 
+    List<Edge> Dijkstra() {
+        return new ArrayList<Edge>();
+    }
+
     /**
      * @param filename: A filename containing the details of the city road network
      * @param sA,       sB, sC: speeds for 3 contestants
      */
     CompetitionDijkstra(String filename, int sA, int sB, int sC) {
-
+        double minTime = 0;
     }
 
     /**
