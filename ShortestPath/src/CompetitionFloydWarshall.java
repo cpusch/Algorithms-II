@@ -24,12 +24,9 @@ public class CompetitionFloydWarshall {
                         matrix[i][j] = Double.POSITIVE_INFINITY;
                 }
             }
-            // adds edges from file to edge list
+            // adds edges from file to matrix
             while (input.hasNextLine()) {
-                int a = input.nextInt();
-                int b = input.nextInt();
-                double c = input.nextDouble();
-                matrix[a][b] = c;
+                matrix[input.nextInt()][input.nextInt()] = input.nextDouble();
             }
             input.close();
         } catch (Exception e) {
