@@ -23,12 +23,19 @@ public class CompetitionFloydWarshall {
             input.next();
             matrix = new double[numNodes][numNodes];
             for (int i = 0; i < numNodes; i++) {
-                for (int j = 0; j < numNodes; j++)
-                    matrix[i][j] = Double.POSITIVE_INFINITY;
+                for (int j = 0; j < numNodes; j++) {
+                    if (i == j)
+                        matrix[i][j] = 0;
+                    else
+                        matrix[i][j] = Double.POSITIVE_INFINITY;
+                }
             }
             // adds edges from file to edge list
             while (input.hasNextLine()) {
-                matrix[input.nextInt()][input.nextInt()] = input.nextDouble();
+                int a = input.nextInt();
+                int b = input.nextInt();
+                double c = input.nextDouble();
+                matrix[a][b] = c;
             }
             input.close();
         } catch (Exception e) {
