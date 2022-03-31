@@ -8,12 +8,6 @@ public class CompetitionFloydWarshall {
     double[][] matrix;
     int numNodes;
 
-    public static void main(String args[]) {
-        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/input-D.txt";
-        CompetitionFloydWarshall test = new CompetitionFloydWarshall(file, 50, 80, 60);
-        System.out.println(test.timeRequiredforCompetition());
-    }
-
     void parseFile(String filename) {
         try {
             File file = new File(filename);
