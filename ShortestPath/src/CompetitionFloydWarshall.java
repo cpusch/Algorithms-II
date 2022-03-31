@@ -5,7 +5,7 @@ public class CompetitionFloydWarshall {
     double longestPath = 0;
     int sA, sB, sC;
     int slowestWalker;
-    double[][] matrix;
+    double[][] matrix = new double[0][0];
     int numNodes;
 
     void parseFile(String filename) {
