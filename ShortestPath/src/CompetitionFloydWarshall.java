@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.File;
 
 public class CompetitionFloydWarshall {
-    private double longestPath = 0;
-    private int sA, sB, sC;
-    private int slowestWalker;
-    public double[][] matrix;
-    private int numNodes;
+    double longestPath = 0;
+    int sA, sB, sC;
+    int slowestWalker;
+    double[][] matrix;
+    int numNodes;
 
     public static void main(String args[]) {
         String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/input-D.txt";

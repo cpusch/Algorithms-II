@@ -19,11 +19,11 @@ import java.io.File;
  */
 
 public class CompetitionDijkstra {
-    private double longestPath = 0;
-    private int sA, sB, sC;
-    private int slowestWalker;
-    private int numNodes;
-    private double[][] matrix;
+    double longestPath = 0;
+    int sA, sB, sC;
+    int slowestWalker;
+    int numNodes;
+    double[][] matrix;
 
     void parseFile(String filename) {
         try {
