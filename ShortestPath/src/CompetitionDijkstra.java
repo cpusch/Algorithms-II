@@ -25,7 +25,7 @@ public class CompetitionDijkstra {
 
     public static void main(String args[]) {
         String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/input-I.txt";
-        CompetitionDijkstra test = new CompetitionDijkstra(file, 50, 80, 70);
+        CompetitionDijkstra test = new CompetitionDijkstra(file, 72, 65, 70);
         int speed = test.timeRequiredforCompetition();
         System.out.println(speed);
     }
@@ -33,7 +33,6 @@ public class CompetitionDijkstra {
     // class that hanldles the graph implementation using an
     // adjacency list. Also parses file to generate graph
     static class Graph {
-        private List<List<Node>> adj_list = new ArrayList<>();
         private double[][] adj_matrix = new double[numNodes][numNodes];
         private static int numEdges;
         private static int numNodes;
@@ -43,28 +42,12 @@ public class CompetitionDijkstra {
          * @param edges list of edges to then create the graph
          */
         Graph(String filename) {
-            List<Edge> edges = parseFile(filename);
-            // adjacency list memory allocation
-            for (int i = 0; i < numNodes; i++)
-                adj_list.add(i, new ArrayList<>());
-
-            // add edges to the graph
-            for (Edge e : edges) {
-                // allocate new node in adjacency List from src to dest
-                adj_list.get(e.src).add(new Node(e.dest, e.weight));
-            }
             double temp[][] = new double[numNodes][numNodes];
             for (int i = 0; i < numNodes; i++) {
                 for (int j = 0; j < numNodes; j++)
                     temp[i][j] = Double.POSITIVE_INFINITY;
             }
-
-            for (int i = 0; i < numNodes; i++) {
-                for (Node n : adj_list.get(i)) {
-                    temp[i][n.value] = n.weight;
-                }
-            }
-            adj_matrix = temp;
+            adj_matrix = parseFile(filename);
         }
 
         int getNumEdges() {
@@ -75,25 +58,22 @@ public class CompetitionDijkstra {
             return numNodes;
         }
 
-        List<List<Node>> getGraph() {
-            return adj_list;
-        }
-
         double[][] getMatrix() {
             return adj_matrix;
         }
 
-        private static List<Edge> parseFile(String filename) {
-            List<Edge> edges = new ArrayList<Edge>();
+        private static double[][] parseFile(String filename) {
+            double temp[][] = new double[0][0];
             try {
                 File file = new File(filename);
                 Scanner input = new Scanner(file);
                 // skip the first two lines and set appropriat values
                 numNodes = input.nextInt();
                 numEdges = input.nextInt();
+                temp = new double[numNodes][numNodes];
                 // adds edges from file to edge list
                 while (input.hasNextLine()) {
-                    edges.add(new Edge(input.nextInt(), input.nextInt(), input.nextDouble()));
+                    temp[input.nextInt()][input.nextInt()] = input.nextDouble();
                 }
                 input.close();
             } catch (Exception e) {
@@ -101,37 +81,7 @@ public class CompetitionDijkstra {
                 e.printStackTrace();
             }
 
-            return edges;
-        }
-    }
-
-    // represents edges in graph
-    private static class Edge {
-        int src, dest;
-        double weight;
-
-        /**
-         * 
-         * @param src    source node
-         * @param dest   destination node
-         * @param weight weight of edge
-         */
-        Edge(int src, int dest, double weight) {
-            this.src = src;
-            this.dest = dest;
-            this.weight = weight;
-        }
-
-    }
-
-    // represents nodes in grpah
-    private static class Node {
-        int value;
-        double weight;
-
-        Node(int value, double weight) {
-            this.value = value;
-            this.weight = weight;
+            return temp;
         }
     }
 
@@ -165,7 +115,7 @@ public class CompetitionDijkstra {
             spt[nodeU] = true;
 
             for (int nodeV = 0; nodeV < graph.getNumNodes(); nodeV++) {
-                if (graph.getMatrix()[nodeU][nodeV] > 0) {
+                if (graph.getMatrix()[nodeU][nodeV] >= 0) {
                     if (spt[nodeV] == false && graph.getMatrix()[nodeU][nodeV] != Double.POSITIVE_INFINITY) {
                         double newDistance = graph.getMatrix()[nodeU][nodeV] + distance[nodeU];
                         if (newDistance < distance[nodeV]) {
