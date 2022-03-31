@@ -127,7 +127,6 @@ public class CompetitionDijkstra {
             return -1;
         else if (longestPath == Double.POSITIVE_INFINITY || longestPath == 0)
             return -1;
-
         else
             return (int) Math.ceil((longestPath * 1000.0) / slowestWalker);
     }
