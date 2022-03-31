@@ -5,76 +5,50 @@ public class CompetitionFloydWarshall {
     private double longestPath = 0;
     private int sA, sB, sC;
     private int slowestWalker;
+    public double[][] matrix;
+    private int numNodes;
 
-    // class that hanldles the graph implementation using an
-    // adjacency list. Also parses file to generate graph
-    static class Graph {
-        private double[][] adjMatrix;
-        private static int numEdges;
-        private static int numNodes;
+    public static void main(String args[]) {
+        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/input-D.txt";
+        CompetitionFloydWarshall test = new CompetitionFloydWarshall(file, 50, 80, 60);
+        System.out.println(test.timeRequiredforCompetition());
+    }
 
-        /**
-         * 
-         * @param edges list of edges to then create the graph
-         */
-        Graph(String filename) {
-            adjMatrix = parseFile(filename);
-        }
-
-        int getNumEdges() {
-            return numEdges;
-        }
-
-        int getNumNodes() {
-            return numNodes;
-        }
-
-        double[][] getMatrix() {
-            return adjMatrix;
-        }
-
-        private static double[][] parseFile(String filename) {
-            double temp[][] = null;
-            try {
-                File file = new File(filename);
-                Scanner input = new Scanner(file);
-                // skip the first two lines and set appropriat values
-                numNodes = input.nextInt();
-                numEdges = input.nextInt();
-                temp = new double[numNodes][numNodes];
-                for (int i = 0; i < numNodes; i++) {
-                    for (int j = 0; j < numNodes; j++)
-                        temp[i][j] = Double.POSITIVE_INFINITY;
-                }
-                // adds edges from file to edge list
-                while (input.hasNextLine()) {
-                    temp[input.nextInt()][input.nextInt()] = input.nextDouble();
-                }
-                input.close();
-            } catch (Exception e) {
-                System.out.println("Error");
-                e.printStackTrace();
+    void parseFile(String filename) {
+        try {
+            File file = new File(filename);
+            Scanner input = new Scanner(file);
+            // skip the first two lines and set appropriat values
+            numNodes = input.nextInt();
+            input.next();
+            matrix = new double[numNodes][numNodes];
+            for (int i = 0; i < numNodes; i++) {
+                for (int j = 0; j < numNodes; j++)
+                    matrix[i][j] = Double.POSITIVE_INFINITY;
             }
-
-            return temp;
+            // adds edges from file to edge list
+            while (input.hasNextLine()) {
+                matrix[input.nextInt()][input.nextInt()] = input.nextDouble();
+            }
+            input.close();
+        } catch (Exception e) {
+            System.out.println("Error");
+            e.printStackTrace();
         }
     }
 
-    static double[][] floydWarshall(Graph graph) {
-        double dist[][] = new double[graph.getNumNodes()][graph.getNumNodes()];
-
-        dist = graph.getMatrix().clone();
-
-        for (int k = 0; k < graph.getNumNodes(); k++) {
-            for (int i = 0; i < graph.getNumNodes(); i++) {
-                for (int j = 0; j < graph.getNumNodes(); j++) {
-                    if (dist[i][k] + dist[k][j] < dist[i][j])
-                        dist[i][j] = dist[i][k] + dist[k][j];
+    void floydWarshall() {
+        for (int k = 0; k < numNodes; k++) {
+            for (int i = 0; i < numNodes; i++) {
+                for (int j = 0; j < numNodes; j++) {
+                    if (matrix[i][k] + matrix[k][j] < matrix[i][j])
+                        matrix[i][j] = matrix[i][k] + matrix[k][j];
                 }
             }
         }
-
-        return dist;
+        for (double[] arr : matrix) {
+            System.out.println(Arrays.toString(arr));
+        }
     }
 
     /**
@@ -82,17 +56,18 @@ public class CompetitionFloydWarshall {
      * @param sA,       sB, sC: speeds for 3 contestants
      */
     CompetitionFloydWarshall(String filename, int sA, int sB, int sC) {
-        Graph graph = new Graph(filename);
+        parseFile(filename);
         this.sA = sA;
         this.sB = sB;
         this.sC = sC;
-        slowestWalker = Math.min(Math.min(sA, sB), sC);
-        double[][] temp = floydWarshall(graph);
 
-        for (int i = 0; i < graph.getNumNodes(); i++) {
-            for (int j = 0; j < graph.getNumNodes(); j++) {
-                if (temp[i][j] > longestPath) {
-                    longestPath = temp[i][j];
+        slowestWalker = Math.min(Math.min(sA, sB), sC);
+        floydWarshall();
+
+        for (int i = 0; i < numNodes; i++) {
+            for (int j = 0; j < numNodes; j++) {
+                if (matrix[i][j] > longestPath) {
+                    longestPath = matrix[i][j];
                 }
             }
         }
