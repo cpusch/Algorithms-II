@@ -24,9 +24,10 @@ public class CompetitionDijkstra {
     private int slowestWalker;
 
     public static void main(String args[]) {
-        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
+        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/input-I.txt";
         CompetitionDijkstra test = new CompetitionDijkstra(file, 50, 80, 70);
-        System.out.println(test.timeRequiredforCompetition());
+        int speed = test.timeRequiredforCompetition();
+        System.out.println(speed);
     }
 
     // class that hanldles the graph implementation using an
@@ -157,7 +158,8 @@ public class CompetitionDijkstra {
 
         for (int i = 0; i < graph.getNumNodes(); i++) {
             int nodeU = getMinimumNode(spt, distance, graph);
-
+            if (nodeU == -1)
+                return distance;
             spt[nodeU] = true;
 
             for (int nodeV = 0; nodeV < graph.getNumNodes(); nodeV++) {
@@ -190,6 +192,7 @@ public class CompetitionDijkstra {
             nodePaths.add(dijkstra(graph, i));
         }
 
+        // extracts longest path
         for (double[] paths : nodePaths) {
             for (int i = 0; i < graph.getNumNodes(); i++) {
                 if (paths[i] > longestPath) {
