@@ -151,8 +151,10 @@ public class CompetitionDijkstra {
         double[] distance = new double[graph.getNumNodes()];
         boolean[] spt = new boolean[graph.getNumNodes()];
 
-        for (int i = 0; i < graph.getNumNodes(); i++)
+        for (int i = 0; i < graph.getNumNodes(); i++) {
             distance[i] = Double.POSITIVE_INFINITY;
+            spt[i] = false;
+        }
 
         distance[source] = 0;
 
