@@ -22,65 +22,37 @@ public class CompetitionDijkstra {
     private double longestPath = 0;
     private int sA, sB, sC;
     private int slowestWalker;
+    private int numNodes;
+    private double[][] matrix;
 
-    // class that hanldles the graph implementation using an
-    // adjacency list. Also parses file to generate graph
-    static class Graph {
-        private double[][] adjMatrix;
-        private static int numEdges;
-        private static int numNodes;
-
-        /**
-         * 
-         * @param edges list of edges to then create the graph
-         */
-        Graph(String filename) {
-            adjMatrix = parseFile(filename);
-        }
-
-        int getNumEdges() {
-            return numEdges;
-        }
-
-        int getNumNodes() {
-            return numNodes;
-        }
-
-        double[][] getMatrix() {
-            return adjMatrix;
-        }
-
-        private static double[][] parseFile(String filename) {
-            double temp[][] = null;
-            try {
-                File file = new File(filename);
-                Scanner input = new Scanner(file);
-                // skip the first two lines and set appropriat values
-                numNodes = input.nextInt();
-                numEdges = input.nextInt();
-                temp = new double[numNodes][numNodes];
-                for (int i = 0; i < numNodes; i++) {
-                    for (int j = 0; j < numNodes; j++)
-                        temp[i][j] = Double.POSITIVE_INFINITY;
-                }
-                // adds edges from file to edge list
-                while (input.hasNextLine()) {
-                    temp[input.nextInt()][input.nextInt()] = input.nextDouble();
-                }
-                input.close();
-            } catch (Exception e) {
-                System.out.println("Error");
-                e.printStackTrace();
+    void parseFile(String filename) {
+        try {
+            File file = new File(filename);
+            Scanner input = new Scanner(file);
+            // skip the first two lines and set appropriat values
+            numNodes = input.nextInt();
+            input.next();
+            matrix = new double[numNodes][numNodes];
+            for (int i = 0; i < numNodes; i++) {
+                for (int j = 0; j < numNodes; j++)
+                    matrix[i][j] = Double.POSITIVE_INFINITY;
             }
-
-            return temp;
+            // adds edges from file to edge list
+            while (input.hasNextLine()) {
+                matrix[input.nextInt()][input.nextInt()] = input.nextDouble();
+            }
+            input.close();
+        } catch (Exception e) {
+            System.out.println("Error");
+            e.printStackTrace();
         }
     }
 
-    static int getMinimumNode(boolean[] mst, double[] distance, Graph graph) {
+    // helper class to locate next shortest node
+    private int getMinimumNode(boolean[] mst, double[] distance) {
         double tempDistance = Double.POSITIVE_INFINITY;
         int node = -1;
-        for (int i = 0; i < graph.getNumNodes(); i++) {
+        for (int i = 0; i < numNodes; i++) {
             if (mst[i] == false && tempDistance > distance[i]) {
                 tempDistance = distance[i];
                 node = i;
@@ -89,27 +61,27 @@ public class CompetitionDijkstra {
         return node;
     }
 
-    double[] dijkstra(Graph graph, int source) {
-        double[] distance = new double[graph.getNumNodes()];
-        boolean[] spt = new boolean[graph.getNumNodes()];
+    double[] dijkstra(int source) {
+        double[] distance = new double[numNodes];
+        boolean[] spt = new boolean[numNodes];
 
-        for (int i = 0; i < graph.getNumNodes(); i++) {
+        for (int i = 0; i < numNodes; i++) {
             distance[i] = Double.POSITIVE_INFINITY;
             spt[i] = false;
         }
 
         distance[source] = 0;
 
-        for (int i = 0; i < graph.getNumNodes(); i++) {
-            int nodeU = getMinimumNode(spt, distance, graph);
+        for (int i = 0; i < numNodes; i++) {
+            int nodeU = getMinimumNode(spt, distance);
             if (nodeU == -1)
                 return distance;
             spt[nodeU] = true;
 
-            for (int nodeV = 0; nodeV < graph.getNumNodes(); nodeV++) {
-                if (graph.getMatrix()[nodeU][nodeV] >= 0) {
-                    if (spt[nodeV] == false && graph.getMatrix()[nodeU][nodeV] != Double.POSITIVE_INFINITY) {
-                        double newDistance = graph.getMatrix()[nodeU][nodeV] + distance[nodeU];
+            for (int nodeV = 0; nodeV < numNodes; nodeV++) {
+                if (matrix[nodeU][nodeV] >= 0) {
+                    if (spt[nodeV] == false && matrix[nodeU][nodeV] != Double.POSITIVE_INFINITY) {
+                        double newDistance = matrix[nodeU][nodeV] + distance[nodeU];
                         if (newDistance < distance[nodeV]) {
                             distance[nodeV] = newDistance;
                         }
@@ -125,20 +97,20 @@ public class CompetitionDijkstra {
      * @param sA,       sB, sC: speeds for 3 contestants
      */
     CompetitionDijkstra(String filename, int sA, int sB, int sC) {
-        Graph graph = new Graph(filename);
+        parseFile(filename);
         this.sA = sA;
         this.sB = sB;
         this.sC = sC;
         slowestWalker = Math.min(Math.min(sA, sB), sC);
         List<double[]> nodePaths = new ArrayList<double[]>();
 
-        for (int i = 0; i < graph.getNumNodes(); i++) {
-            nodePaths.add(dijkstra(graph, i));
+        for (int i = 0; i < numNodes; i++) {
+            nodePaths.add(dijkstra(i));
         }
 
         // extracts longest path
         for (double[] paths : nodePaths) {
-            for (int i = 0; i < graph.getNumNodes(); i++) {
+            for (int i = 0; i < numNodes; i++) {
                 if (paths[i] > longestPath) {
                     longestPath = paths[i];
                 }
