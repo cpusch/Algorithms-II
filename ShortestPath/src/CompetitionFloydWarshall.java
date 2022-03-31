@@ -7,8 +7,8 @@ public class CompetitionFloydWarshall {
     private int slowestWalker;
 
     public static void main(String args[]) {
-        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/tinyEWD.txt";
-        CompetitionFloydWarshall test = new CompetitionFloydWarshall(file, 50, 80, 70);
+        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/input-I.txt";
+        CompetitionFloydWarshall test = new CompetitionFloydWarshall(file, 60, 70, 80);
         System.out.println(test.timeRequiredforCompetition());
 
     }
