@@ -23,17 +23,10 @@ public class CompetitionDijkstra {
     private int sA, sB, sC;
     private int slowestWalker;
 
-    public static void main(String args[]) {
-        String file = "/home/user/Semester2/Algorithms-II/ShortestPath/src/inputAssignment2/input-I.txt";
-        CompetitionDijkstra test = new CompetitionDijkstra(file, 72, 65, 70);
-        int speed = test.timeRequiredforCompetition();
-        System.out.println(speed);
-    }
-
     // class that hanldles the graph implementation using an
     // adjacency list. Also parses file to generate graph
     static class Graph {
-        private double[][] adj_matrix = new double[numNodes][numNodes];
+        private double[][] adjMatrix;
         private static int numEdges;
         private static int numNodes;
 
@@ -42,12 +35,7 @@ public class CompetitionDijkstra {
          * @param edges list of edges to then create the graph
          */
         Graph(String filename) {
-            double temp[][] = new double[numNodes][numNodes];
-            for (int i = 0; i < numNodes; i++) {
-                for (int j = 0; j < numNodes; j++)
-                    temp[i][j] = Double.POSITIVE_INFINITY;
-            }
-            adj_matrix = parseFile(filename);
+            adjMatrix = parseFile(filename);
         }
 
         int getNumEdges() {
@@ -59,11 +47,11 @@ public class CompetitionDijkstra {
         }
 
         double[][] getMatrix() {
-            return adj_matrix;
+            return adjMatrix;
         }
 
         private static double[][] parseFile(String filename) {
-            double temp[][] = new double[0][0];
+            double temp[][] = null;
             try {
                 File file = new File(filename);
                 Scanner input = new Scanner(file);
@@ -71,6 +59,10 @@ public class CompetitionDijkstra {
                 numNodes = input.nextInt();
                 numEdges = input.nextInt();
                 temp = new double[numNodes][numNodes];
+                for (int i = 0; i < numNodes; i++) {
+                    for (int j = 0; j < numNodes; j++)
+                        temp[i][j] = Double.POSITIVE_INFINITY;
+                }
                 // adds edges from file to edge list
                 while (input.hasNextLine()) {
                     temp[input.nextInt()][input.nextInt()] = input.nextDouble();
